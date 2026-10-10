@@ -36,7 +36,7 @@ public class UI_Manager : MonoBehaviour
             else
             {
                 int timer = (int)(1+ restartTimer);
-                restartText.text = "Ready to server in: " + timer + "s";
+                restartText.text = "Ready to serve in: " + timer + "s";
             }
         }
     }

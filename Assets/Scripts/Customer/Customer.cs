@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor.U2D;
 using UnityEngine;
 
-// Kontroler za kretanje mushterija
+// Controls the Customer movement
 public class Customer : MonoBehaviour
 {
     public GameManagerScript gameManager;
