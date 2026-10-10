@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class pourBeer : MonoBehaviour
 {
@@ -30,7 +31,7 @@ public class pourBeer : MonoBehaviour
         if (GameEnding.GameState == GameState.Playing)
         {
             //if (Input.GetKeyDown(KeyCode.Mouse0) && bartender.b_CanPourBeer)
-            if (Input.GetKeyDown(KeyCode.Mouse0))
+            if (Input.GetKeyDown(KeyCode.Mouse0) && !EventSystem.current.IsPointerOverGameObject())
             {
                 audioSource.PlayOneShot(sfx_pourBeer);
 

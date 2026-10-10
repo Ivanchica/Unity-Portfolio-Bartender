@@ -154,4 +154,13 @@ public class GameManagerScript : MonoBehaviour
     {
 
     }
+
+    public void QuitGame()
+    {
+        // Confirms the button works while testing in Unity
+        Debug.Log("Game is exiting..."); 
+        
+        // Closes the actual built application
+        Application.Quit(); 
+    }
 }
