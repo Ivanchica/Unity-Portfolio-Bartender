@@ -25,7 +25,7 @@ public class GameEnding : MonoBehaviour
 
     public void GameOver()
     {
-        // game over, game lose
+        // game over, game lost
         if (!Cheat.isCheatOn)
         {
             GameState = GameState.GameOver;
@@ -34,7 +34,7 @@ public class GameEnding : MonoBehaviour
 
     public void GameWin()
     {
-        // game win
+        // game won
         GameState = GameState.Win;
     }
 

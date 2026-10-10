@@ -26,7 +26,7 @@ public class Mug : MonoBehaviour
         {
             if (other.gameObject.tag == "Customer" && other.GetComponent<Customer>().drinkingBeer == false)
             {
-                //Krigla dosla do mushterije koja cheka pivo
+                // Collision of Mug and the waiting Customer
                 Destroy(gameObject);
                 other.GetComponent<Customer>().drinkBeer();
                 Score.AddScore(100);
@@ -34,13 +34,12 @@ public class Mug : MonoBehaviour
             }
             else if (other.gameObject.tag == "BeginningOfBar")
             {
-                // krigla udarila u pocetak bara - jedan zivot manje
+                // Mug collided with the end of the bar -> decrease one life
                 GameObject explosionInstance = Instantiate(explosion, other.transform.position, other.transform.rotation);
                 Destroy(explosionInstance, 2f);
                 Destroy(gameObject);
-                gameManager.PlayerDied(); // zove f-ju koja oduzima jedan zivot, proverava da li je kraj igre
+                gameManager.PlayerDied(); // decrease one life and check the end game condition
             }
         }
-        
     }
 }

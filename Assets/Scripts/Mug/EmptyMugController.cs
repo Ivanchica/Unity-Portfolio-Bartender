@@ -25,15 +25,15 @@ public class EmptyMugController : MonoBehaviour
         {
             if (other.gameObject.tag == "EndOfBar")
             {
-                //Krigla pala sa bara, jedan zivot manje
+                // Empty Mug fell from the bar -> decrease one life
                 GameObject explosionInstance = Instantiate(explosion, other.transform.position, other.transform.rotation);
                 Destroy(explosionInstance, 2f);
                 Destroy(gameObject);
-                gameManager.PlayerDied(); // zove f-ju koja oduzima jedan zivot, proverava da li je kraj igre
+                gameManager.PlayerDied(); // decrease one life and check the end game condition
             }
             else if (other.gameObject.tag == "Player")
             {
-                // BONUS igrac pokupio kriglu
+                // BONUS - the player character has picked up an empty Mug
                 Destroy(gameObject);
                 Score.AddScore(10);
                 gameManager.UpdateScoreUI();

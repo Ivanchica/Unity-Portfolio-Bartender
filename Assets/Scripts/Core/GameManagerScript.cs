@@ -124,7 +124,7 @@ public class GameManagerScript : MonoBehaviour
 
     public void RestartGame()
     {
-        // restart levela, reset zivota na 3, reset scora, update ui-a 
+        // restart level, reset lives to 3, reset score, update UI
         win = false;
         DestroyMugsAndCustomers();
         bartender.resetBartenderPosition();
@@ -135,8 +135,8 @@ public class GameManagerScript : MonoBehaviour
 
         uiManager.RestartGame();
 
-        //KASNIJE KAD SE NAPRAVI
-        // otvaranje mini igre sa muchkanjem konzervi 
+        // TODO
+        // start the mini-game with shaking mugs
     }
 
     public void ContinuePlayingGame()

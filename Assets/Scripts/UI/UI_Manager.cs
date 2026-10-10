@@ -29,7 +29,7 @@ public class UI_Manager : MonoBehaviour
             restartTimer -= Time.deltaTime;
             if (restartTimer <= 0)
             {
-                // sakriva restart prozor
+                // hide Restart window
                 b_showRestartWindow = false;
                 restartLevel.enabled = false;
             }

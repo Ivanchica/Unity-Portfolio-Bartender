@@ -51,7 +51,7 @@ public class MoveBartender : MonoBehaviour
 
     public void resetBartenderPosition()
     {
-        // postavljanje barmena u pocetni polozaj na startu
+        // Place the Bartender at a start position at the beginning
         gameObject.transform.position = new Vector3(
             SpawnPosition[0].position.x,
             SpawnPosition[0].position.y,

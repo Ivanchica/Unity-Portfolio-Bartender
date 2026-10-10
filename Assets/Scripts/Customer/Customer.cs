@@ -56,11 +56,10 @@ public class Customer : MonoBehaviour
                 }
                 else
                 {
-                    //provera da li je istekao tajmer i onda ide u napred ako jeste 
+                    // if the timer for drinking ran out -> move the customer
                     float deltaTimer = Time.time - startDrinkingTime;
                     if (deltaTimer > endDrinkingTime)
                     {
-                        // krece u napred
                         drinkingBeer = false;
                         mugSprite.GetComponent<SpriteRenderer>().enabled = false;
                         Instantiate(emptyMug, gameObject.transform.position, gameObject.transform.rotation);
@@ -80,11 +79,11 @@ public class Customer : MonoBehaviour
         {
             if (other.gameObject.tag == "EndOfBar")
             {
-                //mushterija dosla do kraja bara - game over
+                // Customer reached the end of the bar -> game over
                 GameObject explosionInstance = Instantiate(explosion, other.transform.position, other.transform.rotation);
                 Destroy(explosionInstance, 2f);
                 endOfBar = true;
-                gameManager.PlayerDied(); // zove f-ju koja oduzima jedan zivot, proverava da li je kraj igre
+                gameManager.PlayerDied(); // decrease one life and check the end game condition
             }
             if (other.gameObject.tag == "BeginningOfBar")
             {

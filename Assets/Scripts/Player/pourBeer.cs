@@ -34,9 +34,9 @@ public class pourBeer : MonoBehaviour
             {
                 audioSource.PlayOneShot(sfx_pourBeer);
 
-                // pomeri barmena do chesme
+                // place the Bartender next to the tap
                 bartender.MoveNearTap();
-                // Napuni kriglu, prikazi je u ruci barmena
+                // Fill the Mug, show it in Bartender's hand
                 float newX = gameObject.transform.position.x + mugPosOffsetX;
                 float newY = gameObject.transform.position.y - mugPosOffsetY;
                 Vector3 mugPos = new Vector3(newX, newY, gameObject.transform.position.z);
@@ -50,13 +50,12 @@ public class pourBeer : MonoBehaviour
             {
                 if (!b_mugIsFull)
                 {
-                    // barmen se sheta
-                    // krigla u ruci nestaje
+                    // Bartender is walking -> destroy the Mug
                     Destroy(mugInHands);
                 }
                 else
                 {
-                    // krigla poslata musteriji
+                    // Mug is sent to the Customer
                     audioSource.PlayOneShot(sfx_sendBeer);
 
                     Destroy(mugInHands);
@@ -72,7 +71,7 @@ public class pourBeer : MonoBehaviour
 
     public void AbortSendMug()
     {
-        // unisti napunjenu kriglu, igrac se pokrenuo
+        // player moved -> destroy the Mug
         b_mugIsFull = false;
         if (mugInHands != null)
         {
