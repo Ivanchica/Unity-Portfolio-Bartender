@@ -35,13 +35,13 @@ public class MoveBartender : MonoBehaviour
     {
         if (GameEnding.GameState == GameState.Playing)
         {
-            if (Input.GetKeyDown(KeyCode.DownArrow)) { MoveDown(); }
+            if (Input.GetKeyDown(KeyCode.S)) { MoveDown(); }
 
-            if (Input.GetKeyDown(KeyCode.UpArrow)) { MoveUp(); }
+            if (Input.GetKeyDown(KeyCode.W)) { MoveUp(); }
 
-            if (Input.GetKey(KeyCode.LeftArrow)) { MoveLeft(); }
+            if (Input.GetKey(KeyCode.A)) { MoveLeft(); }
 
-            if (Input.GetKey(KeyCode.RightArrow)) { MoveRight(); }
+            if (Input.GetKey(KeyCode.D)) { MoveRight(); }
         }
 
         distanceToTap = SpawnPosition[bartenderPosition].position.x - transform.position.x;
