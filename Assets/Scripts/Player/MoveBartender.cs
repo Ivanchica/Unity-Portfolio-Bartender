@@ -35,13 +35,28 @@ public class MoveBartender : MonoBehaviour
     {
         if (GameEnding.GameState == GameState.Playing)
         {
-            if (Input.GetKeyDown(KeyCode.S)) { MoveDown(); }
+            if (Input.GetKeyDown(KeyCode.S)) 
+            {
+                pourBeerComponent.AbortSendMug();
+                MoveDown(); 
+            }
+            if (Input.GetKeyDown(KeyCode.W)) 
+            {
+                pourBeerComponent.AbortSendMug();
+                MoveUp();
+            }
 
-            if (Input.GetKeyDown(KeyCode.W)) { MoveUp(); }
+            if (Input.GetKey(KeyCode.A))
+            {
+                pourBeerComponent.AbortSendMug();
+                MoveLeft();
+            }
 
-            if (Input.GetKey(KeyCode.A)) { MoveLeft(); }
-
-            if (Input.GetKey(KeyCode.D)) { MoveRight(); }
+            if (Input.GetKey(KeyCode.D))
+            {
+                pourBeerComponent.AbortSendMug();
+                MoveRight();
+            }
         }
 
         distanceToTap = SpawnPosition[bartenderPosition].position.x - transform.position.x;
@@ -62,8 +77,6 @@ public class MoveBartender : MonoBehaviour
     void MoveDown()
     {
         audioSource.PlayOneShot(sfx_walk);
-
-        pourBeerComponent.AbortSendMug();
         bartenderPosition++;
         if (bartenderPosition > 3) { bartenderPosition = 0; }
         gameObject.transform.position = new Vector3(
@@ -76,8 +89,6 @@ public class MoveBartender : MonoBehaviour
     void MoveUp()
     {
         audioSource.PlayOneShot(sfx_walk);
-
-        pourBeerComponent.AbortSendMug();
         bartenderPosition--;
         if (bartenderPosition < 0) { bartenderPosition = 3; }
         gameObject.transform.position = new Vector3(
@@ -89,7 +100,6 @@ public class MoveBartender : MonoBehaviour
 
     void MoveLeft()
     {
-        pourBeerComponent.AbortSendMug();
         if (transform.position.x > beginningOfBar[bartenderPosition].position.x)
         {
             transform.position += new Vector3(-bartenderSpeed * Time.deltaTime, 0f, 0f);
@@ -98,7 +108,6 @@ public class MoveBartender : MonoBehaviour
     
     void MoveRight()
     {
-        pourBeerComponent.AbortSendMug();
         if (transform.position.x < SpawnPosition[bartenderPosition].position.x)
         {
             transform.position += new Vector3(bartenderSpeed * Time.deltaTime, 0f, 0f);
