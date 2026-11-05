@@ -31,7 +31,7 @@ public class pourBeer : MonoBehaviour
         if (GameEnding.GameState == GameState.Playing)
         {
             //if (Input.GetKeyDown(KeyCode.Mouse0) && bartender.b_CanPourBeer)
-            if (Input.GetKeyDown(KeyCode.Mouse0) && !EventSystem.current.IsPointerOverGameObject())
+            if (Input.GetKeyDown(KeyCode.P) && !EventSystem.current.IsPointerOverGameObject())
             {
                 audioSource.PlayOneShot(sfx_pourBeer);
 
@@ -47,7 +47,7 @@ public class pourBeer : MonoBehaviour
                 b_mugIsFull = true;
             }
 
-            if (Input.GetKeyUp(KeyCode.Mouse0))
+            if (Input.GetKeyUp(KeyCode.P))
             {
                 if (!b_mugIsFull)
                 {
