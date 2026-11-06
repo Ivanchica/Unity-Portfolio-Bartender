@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -15,6 +15,9 @@ public class PlayerController : MonoBehaviour
     public float bartenderSpeed;
 
     private pourBeer pourBeerComponent;
+    private BartenderInputActions inputActions;
+    private Vector2 movementInput;
+    private float previousLaneInput;
     public bool b_CanPourBeer;
     public float pourBeerOffset;
     private float distanceToTap;
@@ -30,29 +33,38 @@ public class PlayerController : MonoBehaviour
         pourBeerOffset = 0.15f;
     }
 
+    private void OnEnable()
+    {
+        inputActions = new BartenderInputActions();
+        inputActions.Player.Move.performed += OnMove;
+        inputActions.Player.Move.canceled += OnMove;
+        inputActions.Enable();
+    }
+
+    private void OnDisable()
+    {
+        if (inputActions == null) { return; }
+
+        inputActions.Player.Move.performed -= OnMove;
+        inputActions.Player.Move.canceled -= OnMove;
+        inputActions.Dispose();
+        inputActions = null;
+        movementInput = Vector2.zero;
+        previousLaneInput = 0f;
+    }
+
     // Update is called once per frame
     void Update()
     {
         if (GameEnding.GameState == GameState.Playing)
         {
-            if (Input.GetKeyDown(KeyCode.S)) 
-            {
-                pourBeerComponent.AbortSendMug();
-                MoveDown(); 
-            }
-            if (Input.GetKeyDown(KeyCode.W)) 
-            {
-                pourBeerComponent.AbortSendMug();
-                MoveUp();
-            }
-
-            if (Input.GetKey(KeyCode.A))
+            if (movementInput.x < -0.5f)
             {
                 pourBeerComponent.AbortSendMug();
                 MoveLeft();
             }
 
-            if (Input.GetKey(KeyCode.D))
+            if (movementInput.x > 0.5f)
             {
                 pourBeerComponent.AbortSendMug();
                 MoveRight();
@@ -62,6 +74,27 @@ public class PlayerController : MonoBehaviour
         distanceToTap = SpawnPosition[bartenderPosition].position.x - transform.position.x;
         if (distanceToTap < pourBeerOffset) { b_CanPourBeer = true; }
         else { b_CanPourBeer = false; }
+    }
+
+    private void OnMove(InputAction.CallbackContext context)
+    {
+        movementInput = context.ReadValue<Vector2>();
+
+        if (GameEnding.GameState == GameState.Playing)
+        {
+            if (movementInput.y < -0.5f && previousLaneInput >= 0f)
+            {
+                if (pourBeerComponent != null) { pourBeerComponent.AbortSendMug(); }
+                MoveDown();
+            }
+            else if (movementInput.y > 0.5f && previousLaneInput <= 0f)
+            {
+                if (pourBeerComponent != null) { pourBeerComponent.AbortSendMug(); }
+                MoveUp();
+            }
+        }
+
+        previousLaneInput = movementInput.y;
     }
 
     public void resetBartenderPosition()
@@ -78,7 +111,7 @@ public class PlayerController : MonoBehaviour
     {
         audioSource.PlayOneShot(sfx_walk);
         bartenderPosition++;
-        if (bartenderPosition > 3) { bartenderPosition = 0; }
+        if (bartenderPosition >= SpawnPosition.Length) { bartenderPosition = 0; }
         gameObject.transform.position = new Vector3(
             SpawnPosition[bartenderPosition].position.x,
             SpawnPosition[bartenderPosition].position.y,
@@ -90,7 +123,7 @@ public class PlayerController : MonoBehaviour
     {
         audioSource.PlayOneShot(sfx_walk);
         bartenderPosition--;
-        if (bartenderPosition < 0) { bartenderPosition = 3; }
+        if (bartenderPosition < 0) { bartenderPosition = SpawnPosition.Length - 1; }
         gameObject.transform.position = new Vector3(
             SpawnPosition[bartenderPosition].position.x,
             SpawnPosition[bartenderPosition].position.y,
@@ -100,18 +133,18 @@ public class PlayerController : MonoBehaviour
 
     void MoveLeft()
     {
-        if (transform.position.x > beginningOfBar[bartenderPosition].position.x)
-        {
-            transform.position += new Vector3(-bartenderSpeed * Time.deltaTime, 0f, 0f);
-        }
+        float leftBoundary = beginningOfBar[bartenderPosition].position.x;
+        Vector3 position = transform.position;
+        position.x = Mathf.Max(leftBoundary, position.x - bartenderSpeed * Time.deltaTime);
+        transform.position = position;
     }
     
     void MoveRight()
     {
-        if (transform.position.x < SpawnPosition[bartenderPosition].position.x)
-        {
-            transform.position += new Vector3(bartenderSpeed * Time.deltaTime, 0f, 0f);
-        }
+        float rightBoundary = SpawnPosition[bartenderPosition].position.x;
+        Vector3 position = transform.position;
+        position.x = Mathf.Min(rightBoundary, position.x + bartenderSpeed * Time.deltaTime);
+        transform.position = position;
     }
 
     public void MoveNearTap()
