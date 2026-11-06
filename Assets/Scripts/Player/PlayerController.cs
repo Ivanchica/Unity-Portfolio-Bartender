@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     public float bartenderSpeed;
 
     private pourBeer pourBeerComponent;
-    private BartenderInputActions inputActions;
+    private BartenderControls inputActions;
     private Vector2 movementInput;
     private float previousLaneInput;
     public bool b_CanPourBeer;
@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnEnable()
     {
-        inputActions = new BartenderInputActions();
+        inputActions = new BartenderControls();
         inputActions.Player.Move.performed += OnMove;
         inputActions.Player.Move.canceled += OnMove;
         inputActions.Enable();

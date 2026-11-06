@@ -1,5 +1,5 @@
 {
-    "name": "BartenderInputActions",
+    "name": "BartenderControls",
     "maps": [
         {
             "name": "Player",
@@ -13,6 +13,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "FillSendMug",
+                    "type": "Button",
+                    "id": "6ba38338-abc3-4b2d-aace-0e3b38cbaa4d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -20,36 +29,67 @@
                     "name": "WASD",
                     "id": "f724b1a2-f58d-4777-9658-2c3fd2e4be32",
                     "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "Move",
-                    "isComposite": true
+                    "isComposite": true,
+                    "isPartOfComposite": false
                 },
                 {
                     "name": "up",
                     "id": "09688a1e-1d3c-4c49-81ed-0f5228415629",
                     "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "Move",
+                    "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "down",
                     "id": "9914a540-2a7f-4efb-9ff6-124740799132",
                     "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "Move",
+                    "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "left",
                     "id": "e87f4356-35dd-4b8a-82d0-c1233779b75e",
                     "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "Move",
+                    "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "right",
                     "id": "349689e8-bfa8-4528-9d91-6615f105a2b6",
                     "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "Move",
+                    "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "61d50671-a888-4042-a112-1b7a72300a4d",
+                    "path": "<Keyboard>/#(O)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FillSendMug",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
