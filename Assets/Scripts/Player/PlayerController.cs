@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class MoveBartender : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     public AudioSource audioSource;
     public AudioClip sfx_walk;

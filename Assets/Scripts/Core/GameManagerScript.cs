@@ -18,7 +18,7 @@ public class GameManagerScript : MonoBehaviour
     private GameObject[] emptyMugs;
     private GameObject[] customers;
 
-    public MoveBartender bartender;
+    public PlayerController bartender;
     private CustomerSpawner customerSpawner;
 
     public bool win;

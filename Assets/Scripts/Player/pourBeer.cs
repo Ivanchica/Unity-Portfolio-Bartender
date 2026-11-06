@@ -16,13 +16,13 @@ public class pourBeer : MonoBehaviour
 
     public float mugPosOffsetX, mugPosOffsetY;
     private bool b_mugIsFull;
-    private MoveBartender bartender;
+    private PlayerController bartender;
 
     // Start is called before the first frame update
     void Start()
     {
         b_mugIsFull = false;
-        bartender = gameObject.GetComponent<MoveBartender>();
+        bartender = gameObject.GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
