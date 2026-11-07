@@ -17,6 +17,19 @@ public class UI_Manager : MonoBehaviour
     private float restartTimer;
     private bool b_showRestartWindow;
 
+    private void OnEnable()
+    {
+        // unsubscribe first to avoid duplicate subscriptions if this object is enabled multiple times
+        Score.OnScoreChanged -= HandleScoreChanged;
+        // subscribe to the event
+        Score.OnScoreChanged += HandleScoreChanged;
+    }
+    private void OnDisable()
+    {
+        // Stop listening to prevent memory leaks if this object is destroyed
+        Score.OnScoreChanged -= HandleScoreChanged;
+    }
+
     private void Start()
     {
         RestartGame();
@@ -44,6 +57,11 @@ public class UI_Manager : MonoBehaviour
     public void UpdateScore()
     {
         scoreNumber.text = "" + Score.score;
+    }
+
+    private void HandleScoreChanged(int newScore)
+    {
+        scoreNumber.text = "" + newScore; // Update the score display
     }
 
     public void UpdateLifes()

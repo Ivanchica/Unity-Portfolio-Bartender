@@ -36,7 +36,6 @@ public class EmptyMugController : MonoBehaviour
                 // BONUS - the player character has picked up an empty Mug
                 Destroy(gameObject);
                 Score.AddScore(10);
-                gameManager.UpdateScoreUI();
                 audioSource.PlayOneShot(sfx_EmptyMugPick);
             }
         }

@@ -30,7 +30,6 @@ public class Mug : MonoBehaviour
                 Destroy(gameObject);
                 other.GetComponent<Customer>().drinkBeer();
                 Score.AddScore(100);
-                gameManager.UpdateScoreUI();
             }
             else if (other.gameObject.tag == "BeginningOfBar")
             {
