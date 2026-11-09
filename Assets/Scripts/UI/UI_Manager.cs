@@ -23,11 +23,16 @@ public class UI_Manager : MonoBehaviour
         Score.OnScoreChanged -= HandleScoreChanged;
         // subscribe to the event
         Score.OnScoreChanged += HandleScoreChanged;
+        // Unsubscribe first to avoid duplicate subscriptions
+        Lives.OnLivesChanged -= HandleLivesChanged;
+         // Subscribe to the event
+        Lives.OnLivesChanged += HandleLivesChanged;
     }
     private void OnDisable()
     {
         // Stop listening to prevent memory leaks if this object is destroyed
         Score.OnScoreChanged -= HandleScoreChanged;
+        Lives.OnLivesChanged -= HandleLivesChanged;
     }
 
     private void Start()
@@ -73,6 +78,11 @@ public class UI_Manager : MonoBehaviour
                 lifeIcons[i].enabled = false;
             }
         }
+    }
+
+    private void HandleLivesChanged(int newLives)
+    {
+        UpdateLifes();
     }
 
     public void displayRestartLevel()
