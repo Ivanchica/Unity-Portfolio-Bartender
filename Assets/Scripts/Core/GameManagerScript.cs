@@ -117,11 +117,6 @@ public class GameManagerScript : MonoBehaviour
         Invoke("DestroyMugsAndCustomers", 0.5f);
     }
 
-    public void UpdateScoreUI()
-    {
-        uiManager.UpdateScore();
-    }
-
     public void RestartGame()
     {
         // restart level, reset lives to 3, reset score, update UI
@@ -131,7 +126,7 @@ public class GameManagerScript : MonoBehaviour
         customerSpawner.ResetCustomerSpawn();
         GameEnding.GameState = GameState.Playing;
         Lives.ResetLives();
-        Score.score = 0;
+        ScoreEvents.ChangeScore(0);
 
         uiManager.RestartGame();
 

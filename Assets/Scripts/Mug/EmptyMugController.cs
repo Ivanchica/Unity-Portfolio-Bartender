@@ -10,6 +10,8 @@ public class EmptyMugController : MonoBehaviour
     public GameObject explosion;
     public GameManagerScript gameManager;
 
+     [SerializeField] private int points = 10;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,7 +37,7 @@ public class EmptyMugController : MonoBehaviour
             {
                 // BONUS - the player character has picked up an empty Mug
                 Destroy(gameObject);
-                Score.AddScore(10);
+                ScoreEvents.AddPoints(points);
                 audioSource.PlayOneShot(sfx_EmptyMugPick);
             }
         }

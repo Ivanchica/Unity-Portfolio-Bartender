@@ -20,18 +20,16 @@ public class UI_Manager : MonoBehaviour
     private void OnEnable()
     {
         // unsubscribe first to avoid duplicate subscriptions if this object is enabled multiple times
-        Score.OnScoreChanged -= HandleScoreChanged;
-        // subscribe to the event
-        Score.OnScoreChanged += HandleScoreChanged;
-        // Unsubscribe first to avoid duplicate subscriptions
+        ScoreEvents.OnScoreChanged -= UpdateScoreText;
+        ScoreEvents.OnScoreChanged += UpdateScoreText;
+
         Lives.OnLivesChanged -= HandleLivesChanged;
-         // Subscribe to the event
         Lives.OnLivesChanged += HandleLivesChanged;
     }
     private void OnDisable()
     {
         // Stop listening to prevent memory leaks if this object is destroyed
-        Score.OnScoreChanged -= HandleScoreChanged;
+        ScoreEvents.OnScoreChanged -= UpdateScoreText;
         Lives.OnLivesChanged -= HandleLivesChanged;
     }
 
@@ -59,13 +57,8 @@ public class UI_Manager : MonoBehaviour
         }
     }
 
-    public void UpdateScore()
-    {
-        scoreNumber.text = "" + Score.score;
-    }
-
-    private void HandleScoreChanged(int newScore)
-    {
+    private void UpdateScoreText(int newScore)
+    {       
         scoreNumber.text = "" + newScore; // Update the score display
     }
 
@@ -106,7 +99,6 @@ public class UI_Manager : MonoBehaviour
         winUI.enabled = false;
         gameOverUI.enabled = false;
 
-        UpdateScore();
         UpdateLifes();
     }
 
@@ -119,7 +111,6 @@ public class UI_Manager : MonoBehaviour
         winUI.enabled = false;
         gameOverUI.enabled = false;
 
-        UpdateScore();
         UpdateLifes();
     }
 

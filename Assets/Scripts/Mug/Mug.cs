@@ -6,6 +6,8 @@ public class Mug : MonoBehaviour
 {
     public GameObject explosion;
     public GameManagerScript gameManager;
+    
+    [SerializeField] private int points = 100;
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +31,7 @@ public class Mug : MonoBehaviour
                 // Collision of Mug and the waiting Customer
                 Destroy(gameObject);
                 other.GetComponent<Customer>().drinkBeer();
-                Score.AddScore(100);
+                ScoreEvents.AddPoints(points);
             }
             else if (other.gameObject.tag == "BeginningOfBar")
             {
