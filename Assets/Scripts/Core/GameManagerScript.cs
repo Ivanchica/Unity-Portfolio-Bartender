@@ -17,7 +17,6 @@ public class GameManagerScript : MonoBehaviour
 
     private GameObject[] mugs;
     private GameObject[] emptyMugs;
-    private GameObject[] customers;
 
     [SerializeField] private PlayerController bartender;
     [SerializeField] private CustomerSpawner customerSpawner;
