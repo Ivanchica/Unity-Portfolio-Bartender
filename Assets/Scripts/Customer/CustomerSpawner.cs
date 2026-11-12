@@ -11,8 +11,8 @@ using UnityEngineInternal;
 
 public class CustomerSpawner : MonoBehaviour
 {
-    public Transform[] spawnPosition;
-    public GameObject customerPrefab;
+    [SerializeField] private Transform[] spawnPosition;
+    [SerializeField] private GameObject customerPrefab;
 
     private float[] timeSinceLastSpawn;
     private float[] spawnTimer;

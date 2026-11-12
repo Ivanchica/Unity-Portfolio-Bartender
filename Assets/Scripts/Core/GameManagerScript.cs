@@ -19,7 +19,7 @@ public class GameManagerScript : MonoBehaviour
     private GameObject[] customers;
 
     public PlayerController bartender;
-    private CustomerSpawner customerSpawner;
+    [SerializeField] private CustomerSpawner customerSpawner;
 
     public bool win;
 
@@ -32,7 +32,6 @@ public class GameManagerScript : MonoBehaviour
     void Start()
     {
         audioSource.PlayOneShot(sfx_GameStart);
-        customerSpawner = GetComponent<CustomerSpawner>();
         win = false;
     }
 
@@ -75,7 +74,7 @@ public class GameManagerScript : MonoBehaviour
     void RestartLevel()
     {
         bartender.resetBartenderPosition();
-        customerSpawner.ResetCustomerSpawn();
+        ResetCustomerPosition();
         GameEnding.GameState = GameState.Playing;
     }
 
@@ -123,7 +122,7 @@ public class GameManagerScript : MonoBehaviour
         win = false;
         DestroyMugsAndCustomers();
         bartender.resetBartenderPosition();
-        customerSpawner.ResetCustomerSpawn();
+        ResetCustomerPosition();
         GameEnding.GameState = GameState.Playing;
         Lives.ResetLives();
         ScoreEvents.ChangeScore(0);
@@ -139,10 +138,18 @@ public class GameManagerScript : MonoBehaviour
         win = false;
         DestroyMugsAndCustomers();
         bartender.resetBartenderPosition();
-        customerSpawner.ResetCustomerSpawn();
+        ResetCustomerPosition();
         GameEnding.GameState = GameState.Playing;
 
         uiManager.RestartGame();
+    }
+
+    public void ResetCustomerPosition()
+    {
+        if (customerSpawner != null)
+        {
+            customerSpawner.ResetCustomerSpawn();
+        }
     }
 
     public void MiniGameCans()
