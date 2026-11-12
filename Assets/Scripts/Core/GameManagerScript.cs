@@ -62,7 +62,7 @@ public class GameManagerScript : MonoBehaviour
         else
         {
             // restart level
-            uiManager.UpdateLifes();
+            uiManager.UpdateLives();
             gameEnding.GameRestartLevel();
             uiManager.displayRestartLevel();
             Invoke("DestroyMugsAndCustomers", 0.1f);
@@ -115,7 +115,7 @@ public class GameManagerScript : MonoBehaviour
     public void GameOver()
     {
         gameEnding.GameOver();
-        uiManager.UpdateLifes();
+        uiManager.UpdateLives();
         uiManager.ShowGameOverUI();
         Invoke("DestroyMugsAndCustomers", 0.5f);
     }

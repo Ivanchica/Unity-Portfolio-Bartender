@@ -62,7 +62,7 @@ public class UI_Manager : MonoBehaviour
         scoreNumber.text = "" + newScore; // Update the score display
     }
 
-    public void UpdateLifes()
+    public void UpdateLives()
     {
         for (int i = 0; i < 3; i++)
         {
@@ -75,7 +75,7 @@ public class UI_Manager : MonoBehaviour
 
     private void HandleLivesChanged(int newLives)
     {
-        UpdateLifes();
+        UpdateLives();
     }
 
     public void displayRestartLevel()
@@ -99,7 +99,7 @@ public class UI_Manager : MonoBehaviour
         winUI.enabled = false;
         gameOverUI.enabled = false;
 
-        UpdateLifes();
+        UpdateLives();
     }
 
     public void ContinuePlayingGame()
@@ -111,7 +111,7 @@ public class UI_Manager : MonoBehaviour
         winUI.enabled = false;
         gameOverUI.enabled = false;
 
-        UpdateLifes();
+        UpdateLives();
     }
 
     public void ShowGameWinUI()
