@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class GameManagerScript : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class GameManagerScript : MonoBehaviour
     private GameObject[] emptyMugs;
     private GameObject[] customers;
 
-    public PlayerController bartender;
+    [SerializeField] private PlayerController bartender;
     [SerializeField] private CustomerSpawner customerSpawner;
 
     public bool win;
@@ -92,10 +93,14 @@ public class GameManagerScript : MonoBehaviour
             Destroy(mug);
         }
 
-        customers = GameObject.FindGameObjectsWithTag("Customer");
-        foreach (GameObject customer in customers)
+        // Destroy all active customers
+        if (customerSpawner != null)
         {
-            Destroy(customer);
+            customerSpawner.ClearActiveCustomers();
+        }
+        else
+        {
+            Debug.LogError("CustomerSpawner reference is missing in GameManagerScript.");
         }
     }
 
@@ -149,6 +154,10 @@ public class GameManagerScript : MonoBehaviour
         if (customerSpawner != null)
         {
             customerSpawner.ResetCustomerSpawn();
+        }
+        else
+        {
+            Debug.LogError("CustomerSpawner reference is missing in GameManagerScript.");
         }
     }
 

@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.U2D;
 using UnityEngine;
+using System;
 
 // Controls the Customer movement
 public class Customer : MonoBehaviour
 {
     public GameManagerScript gameManager;
+
+    // Event to notify when the customer is destroyed
+    public event Action<GameObject> OnCustomerDestroyed;
 
     public bool drinkingBeer;
     public bool endOfBar = false;
@@ -90,6 +94,12 @@ public class Customer : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+    }
+
+    private void OnDestroy()
+    {
+        // Notify subscribers that the customer is being destroyed
+        OnCustomerDestroyed?.Invoke(gameObject);
     }
 
     public void drinkBeer ()

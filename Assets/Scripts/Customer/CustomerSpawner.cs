@@ -14,6 +14,8 @@ public class CustomerSpawner : MonoBehaviour
     [SerializeField] private Transform[] spawnPosition;
     [SerializeField] private GameObject customerPrefab;
 
+    private List<GameObject> activeCustomers = new List<GameObject>();
+
     private float[] timeSinceLastSpawn;
     private float[] spawnTimer;
     private float[] deltaTimer;
@@ -58,7 +60,30 @@ public class CustomerSpawner : MonoBehaviour
 
     void SpawnCustomer(int row)
     {
-        Instantiate(customerPrefab, spawnPosition[row].position, spawnPosition[row].rotation);
+        GameObject newCustomer = Instantiate(customerPrefab, spawnPosition[row].position, spawnPosition[row].rotation);
+        activeCustomers.Add(newCustomer);
+
+        // Subscribe to the OnCustomerDestroyed event of the Customer script
+        Customer customerScript = newCustomer.GetComponent<Customer>();
+        if (customerScript != null)
+        {
+            // Unsubscribe before subscribing to prevent multiple event handler registrations.
+            customerScript.OnCustomerDestroyed -= HandleCustomerDestruction;
+            customerScript.OnCustomerDestroyed += HandleCustomerDestruction;
+        }
+        else
+        {
+            Debug.LogError("Customer script not found on the instantiated customer prefab.");
+        }
+    }
+
+    public void HandleCustomerDestruction(GameObject customer)
+    {
+        if (activeCustomers.Contains(customer))
+        {
+            activeCustomers.Remove(customer);
+            Destroy(customer);
+        }
     }
 
     public void ResetCustomerSpawn()
@@ -68,6 +93,20 @@ public class CustomerSpawner : MonoBehaviour
             timeSinceLastSpawn[i] = Time.time;
             SpawnCustomer(i);
         }
+    }
+
+    public void ClearActiveCustomers()
+    {
+        StopAllCoroutines(); // Stop any ongoing coroutines to prevent new customers from spawning while clearing the list.
+        
+        foreach (GameObject customer in activeCustomers)
+        {
+            if (customer != null)
+            {
+                Destroy(customer);
+            }
+        }
+        activeCustomers.Clear();
     }
 }
 
